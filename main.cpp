@@ -1,5 +1,7 @@
 // Program to replicate two-bit addition
+//#include <iostream>
 #include "mbed.h"
+using namespace std;
 
 int main () {
 	DigitalOut led(LED1);
@@ -15,14 +17,15 @@ int main () {
 		// It then displays the 3-bit value on LED[2-4]
 		// It then blinks 3 times to signal it is doing a new calculation and the cycle repeats
 		for (int num1_bit1 = 0; num1_bit1 < 2; num1_bit1++ ) {
-			for( int num1_bit2 = 0; num1_bit2 < 2; num1_bit2++ ) {
-				for( int num2_bit1 = 0; num2_bit1 < 2; num2_bit1++ ) {
-					for( int num2_bit2 = 0; num2_bit2 < 2; num2_bit2++ ) {
+			for( int num2_bit1 = 0; num2_bit1 < 2; num2_bit1++ ) {
+				for( int num2_bit2 = 0; num2_bit2 < 2; num2_bit2++ ) {
+					for( int num1_bit2 = 0; num1_bit2 < 2; num1_bit2++ ) {
 						//display first number
 						Blue = num1_bit1;
 						Red = num1_bit2;
 						int first_num = Blue * 1;
 						first_num = first_num + Red * 2;
+						printf( "\n\n   %i\n", first_num );
 						ThisThread::sleep_for( 200ms );
 						//Blink all lights between number
 						led = 1;
@@ -40,6 +43,7 @@ int main () {
 						Red = num2_bit2;
 						int second_num = Blue * 1;
 						second_num = second_num + Red * 2;
+						printf( "+  %i\n", second_num );
 						ThisThread::sleep_for( 200ms );
 						//turn off lights
 						led = 0;
@@ -67,6 +71,7 @@ int main () {
 						Blue = 0;
 						//display addition result
 						int answer = first_num + second_num;
+						printf( "------\n   %i\n", answer );
 						Blue = answer % 2;
 						answer = answer / 2;
 						Red = answer % 2;
@@ -101,6 +106,7 @@ int main () {
 		Green = 0;
 		Red = 0;
 		Blue = 0;
+		printf( "\n\n\nCycle restarting...\n\n\n" );
 		ThisThread::sleep_for( 2000ms );
 	}// end while
 }// end main
